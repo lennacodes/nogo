@@ -59,20 +59,31 @@ function loadBlockedDomains() {
 }
 
 function renderBlockedList(domains) {
+  blockedList.textContent = '';
+
   if (domains.length === 0) {
-    blockedList.innerHTML = '<p class="empty-msg">No blocked sites yet</p>';
+    const p = document.createElement('p');
+    p.className = 'empty-msg';
+    p.textContent = 'No blocked sites yet';
+    blockedList.appendChild(p);
     return;
   }
 
-  blockedList.innerHTML = domains.map(domain => `
-    <div class="blocked-item">
-      <span>${domain}</span>
-      <button class="remove-btn" data-domain="${domain}">Remove</button>
-    </div>
-  `).join('');
+  domains.forEach(domain => {
+    const item = document.createElement('div');
+    item.className = 'blocked-item';
 
-  blockedList.querySelectorAll('.remove-btn').forEach(btn => {
-    btn.addEventListener('click', () => requestRemoval(btn.dataset.domain));
+    const span = document.createElement('span');
+    span.textContent = domain;
+
+    const btn = document.createElement('button');
+    btn.className = 'remove-btn';
+    btn.textContent = 'Remove';
+    btn.addEventListener('click', () => requestRemoval(domain));
+
+    item.appendChild(span);
+    item.appendChild(btn);
+    blockedList.appendChild(item);
   });
 }
 
@@ -171,24 +182,47 @@ function loadRedirectRules() {
 }
 
 function renderRedirectList(rules) {
+  redirectList.textContent = '';
+
   if (rules.length === 0) {
-    redirectList.innerHTML = '<p class="empty-msg">No redirects yet</p>';
+    const p = document.createElement('p');
+    p.className = 'empty-msg';
+    p.textContent = 'No redirects yet';
+    redirectList.appendChild(p);
     return;
   }
 
-  redirectList.innerHTML = rules.map((rule, i) => `
-    <div class="redirect-item">
-      <div class="rule-info">
-        <span class="rule-from">${rule.from}</span>
-        <span class="rule-arrow">&rarr;</span>
-        <span class="rule-to">${rule.to}</span>
-      </div>
-      <button class="remove-btn" data-index="${i}">Remove</button>
-    </div>
-  `).join('');
+  rules.forEach((rule, i) => {
+    const item = document.createElement('div');
+    item.className = 'redirect-item';
 
-  redirectList.querySelectorAll('.remove-btn').forEach(btn => {
-    btn.addEventListener('click', () => removeRule(parseInt(btn.dataset.index)));
+    const info = document.createElement('div');
+    info.className = 'rule-info';
+
+    const from = document.createElement('span');
+    from.className = 'rule-from';
+    from.textContent = rule.from;
+
+    const arrow = document.createElement('span');
+    arrow.className = 'rule-arrow';
+    arrow.textContent = '\u2192';
+
+    const to = document.createElement('span');
+    to.className = 'rule-to';
+    to.textContent = rule.to;
+
+    info.appendChild(from);
+    info.appendChild(arrow);
+    info.appendChild(to);
+
+    const btn = document.createElement('button');
+    btn.className = 'remove-btn';
+    btn.textContent = 'Remove';
+    btn.addEventListener('click', () => removeRule(i));
+
+    item.appendChild(info);
+    item.appendChild(btn);
+    redirectList.appendChild(item);
   });
 }
 

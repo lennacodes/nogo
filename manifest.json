@@ -33,5 +33,13 @@
   },
   "web_accessible_resources": [
     "redirecting.html"
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "nogo@lennacodes",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
 }
