@@ -1,6 +1,8 @@
 # nogo
 
-A Firefox browser extension that lets you block and redirect websites by domain. All data is stored locally on your device — nothing is collected, transmitted, or shared. Built with a soft trans-themed pastel UI.
+A browser extension that lets you block and redirect websites by domain. All data is stored locally on your device — nothing is collected, transmitted, or shared. Built with a soft trans-themed pastel UI.
+
+Available for **Firefox** and **Chrome**.
 
 ## Features
 
@@ -11,7 +13,7 @@ A Firefox browser extension that lets you block and redirect websites by domain.
 
 ## How It Works
 
-1. Click the nogo icon in your Firefox toolbar to open the popup
+1. Click the nogo icon in your browser toolbar to open the popup
 2. Type a domain and click **Block** to add it to your block list
 3. Click the gear icon to access settings:
    - **Blocked Sites** — View and manage your blocked domains
@@ -20,17 +22,25 @@ A Firefox browser extension that lets you block and redirect websites by domain.
 
 ## Installation
 
-1. Open Firefox and go to `about:debugging#/runtime/this-firefox`
-2. Click **Load Temporary Add-on**
-3. Select any file in the extension folder (e.g., `manifest.json`)
-4. Pin the extension to your toolbar by clicking the puzzle piece icon and selecting **Pin to Toolbar**
+### Firefox
+1. Install from [Firefox Add-ons](https://addons.mozilla.org) (search "nogo")
+2. Or load manually: go to `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on**, and select any file in the `firefox/` folder
 
-## Permissions
+### Chrome
+1. Go to `chrome://extensions` and enable **Developer mode**
+2. Click **Load unpacked** and select the `chrome/` folder
+3. Pin the extension to your toolbar by clicking the puzzle piece icon
 
-- `webRequest` / `webRequestBlocking` — Intercept and block/redirect web requests
-- `storage` — Save your block list and redirect rules locally
-- `tabs` — Navigate tabs for redirects and opening links
-- `<all_urls>` — Monitor requests across all sites to enforce your rules
+## Project Structure
+
+```
+firefox/    — Firefox extension (Manifest V2)
+chrome/     — Chrome extension (Manifest V3)
+```
+
+## Privacy
+
+nogo does not collect, store, or transmit any user data. All data is stored locally using the browser's built-in storage API. See [PRIVACY.md](PRIVACY.md) for details.
 
 ## Support
 
